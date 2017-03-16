@@ -3,13 +3,15 @@ package com.tttclass;
 import java.awt.Frame;
 import java.nio.channels.ShutdownChannelGroupException;
 
-import org.opencv.core.Core;  
-import org.opencv.core.Mat;  
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;  
 import org.opencv.core.Point;  
 import org.opencv.core.Rect;  
 import org.opencv.core.Scalar;  
 import org.opencv.highgui.Highgui;  
+
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.utils.Converters;  
   
@@ -18,7 +20,7 @@ import org.opencv.utils.Converters;
 // to "faceDetection.png".  
 //  
 public class DetectFaceDemo {  
-  public void run() {  
+  public void run(Mat image2) {  
     System.out.println("\nRunning DetectFaceDemo");  
     System.out.println(getClass().getResource("lbpcascade_frontalface.xml").getPath());  
     // Create a face detector from the cascade file in the resources  
@@ -34,9 +36,17 @@ public class DetectFaceDemo {
     //因此，我们将第一个字符去掉  
     String xmlfilePath=getClass().getResource("lbpcascade_frontalface.xml").getPath().substring(1);  
     CascadeClassifier faceDetector = new CascadeClassifier(xmlfilePath);  
-    Mat image = Highgui.imread(getClass().getResource("we.jpg").getPath().substring(1));  
+    org.opencv.core.Mat image = Highgui.imread(getClass().getResource("we.jpg").getPath().substring(1));  
     // Detect faces in the image.  
     // MatOfRect is a special container class for Rect.  
+    if(image2 != null) {
+    	image = image2;
+    	 MatOfRect faceDetections = new MatOfRect();  
+    	    faceDetector.detectMultiScale(image, faceDetections);  
+    	    for (Rect rect : faceDetections.toArray()) {  
+    	        Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0));  
+    	    }  
+    }
     MatOfRect faceDetections = new MatOfRect();  
     faceDetector.detectMultiScale(image, faceDetections);  
   

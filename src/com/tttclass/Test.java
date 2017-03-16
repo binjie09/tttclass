@@ -6,7 +6,7 @@ public class Test {
     System.out.println("Hello, OpenCV");  
     // Load the native library.  
     System.loadLibrary("opencv_java2411");  
-    new DetectFaceDemo().run(); 
+    new DetectFaceDemo().run(null); 
     
   }  
 }  
