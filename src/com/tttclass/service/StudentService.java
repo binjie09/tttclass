@@ -13,13 +13,27 @@ import com.tttclass.util.CommonUtil;
 
 public class StudentService
 {
-	
+	/**
+	 * 创建学生信息
+	 * @param sID
+	 * @param sName
+	 * @param sClassNumber
+	 * @param sPhoneNumber
+	 * @param sPhotoPath
+	 */
 	public void createStudent(String sID, String sName, String sClassNumber,
 			String sPhoneNumber, String sPhotoPath)
 	{
 		
 	}
-
+	/**
+	 * 更新学生信息
+	 * @param sID
+	 * @param sName
+	 * @param sClassNumber
+	 * @param sPhoneNumber
+	 * @param sPhotoPath
+	 */
 	public void updateStudent(String sID, String sName, String sClassNumber,
 			String sPhoneNumber, String sPhotoPath)
 	{
@@ -66,7 +80,7 @@ public class StudentService
 	{
 		return null;
 	}
-
+	
 	public List<StudentBehave> findStudentBehaveByID(String sID, String beginDate,
 			String endDate)
 	{

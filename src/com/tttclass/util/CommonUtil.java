@@ -42,7 +42,10 @@ public class CommonUtil
 		}
 		return date;
 	}
-
+	/**
+	 * 调用提示窗口
+	 * @param message
+	 */
 	public static void showMessageBox(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, "提示", JOptionPane.OK_OPTION);

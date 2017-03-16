@@ -3,7 +3,11 @@ package com.tttclass.database.interfac;
 import java.util.List;
 
 import com.tttclass.entity.Faculty;
-
+/**
+ * 教员数据库操作接口
+ * @author asus
+ *
+ */
 public interface FacultyDbo
 {
 
