@@ -1,32 +1,129 @@
 package com.tttclass.client;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import com.tttclass.entity.Faculty;
 import com.tttclass.service.FacultyService;
 import com.tttclass.util.CommonUtil;
 
-@SuppressWarnings("serial")
-public class LoginForm extends JFrame
+public class LoginForm extends JPanel 
 {
-	private JPanel contentPane;
-	private JTextField txtUsername;
-	private JPasswordField passwordField;
-	public static String username;
+	private JTextField username;
+	private JPasswordField password;
+	private JButton loginButton;
+	private JButton registerButton;
+	private JDialog dialog;
+	private ButtonGroup group;
+	private JRadioButton studentRadio;
+	private JRadioButton teacherRadio;
+	private boolean ok;
 	
+	public LoginForm()
+	{
+		setLayout(new GridLayout(3, 1));
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2, 2));
+		JLabel userNameLabel = new JLabel("用户名:");
+		userNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(userNameLabel);
+		panel.add(username = new JTextField(""));
+		JLabel passwordLabel = new JLabel("密码:");
+		passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(passwordLabel);
+		panel.add(password = new JPasswordField(""));
+		add(panel);
+		
+		registerButton = new JButton("登陆");
+		registerButton.addActionListener(new ActionListener()
+				{
+			public void actionPerformed(ActionEvent event)
+			{
+				dialog.setVisible(false);
+			}
+				});
+		
+		loginButton = new JButton("注册");
+		loginButton.addActionListener(new ActionListener()
+				{
+			public void actionPerformed(ActionEvent event)
+			{
+				dialog.setVisible(false);
+			}
+				});
+		
+		JPanel radioPanel = new JPanel();
+		group = new ButtonGroup();
+		studentRadio = new JRadioButton("学生", true);
+		teacherRadio = new JRadioButton("教务人员", false);
+		group.add(studentRadio);
+		group.add(teacherRadio);
+		radioPanel.add(new JLabel("你猜?"));
+		radioPanel.add(studentRadio);
+		radioPanel.add(teacherRadio);
+		add(radioPanel);
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(registerButton);
+		buttonPanel.add(loginButton);
+		add(buttonPanel);
+
+	}
+	
+	 /**
+	    * Sets the dialog defaults.
+	    * @param u the default user information
+	    */
+	   public void setUser(User u)
+	   {
+	      username.setText(u.getName());
+	   }
+
+	   /**
+	    * Gets the dialog entries.
+	    * @return a User object whose state represents the dialog entries
+	    */
+	   public User getUser()
+	   {
+	      return new User(username.getText(), password.getPassword(), studentRadio.isSelected() == true ? 0 : 1);
+	   }
+
+	   /**
+	    * Show the chooser panel in a dialog
+	    * @param parent a component in the owner frame or null
+	    * @param title the dialog window title
+	    */
+	   public boolean showDialog(Component parent, String title)
+	   {
+	      ok = false;
+
+	      // locate the owner frame
+
+	      Frame owner = null;
+	      if (parent instanceof Frame) owner = (Frame) parent;
+	      else owner = (Frame) SwingUtilities.getAncestorOfClass(Frame.class, parent);
+
+	      // if first time, or if owner has changed, make new dialog
+
+	      if (dialog == null || dialog.getOwner() != owner)
+	      {
+	         dialog = new JDialog(owner, true);
+	         dialog.add(this);
+	         dialog.getRootPane().setDefaultButton(loginButton);
+	         dialog.pack();
+	      }
+
+	      // set title and show dialog
+
+	      dialog.setTitle(title);
+	      dialog.setVisible(true);
+	      return ok;
+	   }
+	   
 	/**
-	 * 打开登陆窗口
+	 * test the dialog
 	 */
 	public static void main(String[] args)
 	{
@@ -36,8 +133,8 @@ public class LoginForm extends JFrame
 			{
 				try
 				{
-					LoginForm frame = new LoginForm();
-					frame.setVisible(true);
+					LoginForm dialog = new LoginForm();
+					dialog.showDialog(null, "登陆");
 				}
 				catch (Exception e)
 				{
@@ -47,86 +144,4 @@ public class LoginForm extends JFrame
 		});
 	}
 
-	/**
-	 * 生成登陆窗口
-	 */
-	public LoginForm()
-	{
-		setTitle("登陆");
-		setAutoRequestFocus(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 286, 167);
-		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		txtUsername = new JTextField();
-		//txtUsername.setFont(new Font(Constant.font, Font.PLAIN, 16));
-		txtUsername.setBounds(67, 15, 188, 21);
-		contentPane.add(txtUsername);
-		txtUsername.setColumns(10);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(67, 58, 188, 21);
-		contentPane.add(passwordField);
-		
-		JLabel lblNewLabel = new JLabel("用户名");
-		//lblNewLabel.setFont(new Font(Constant.font, Font.PLAIN, 16));
-		lblNewLabel.setBounds(10, 10, 118, 32);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("密   码");
-		//lblNewLabel_1.setFont(new Font(Constant.font, Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(10, 52, 81, 31);
-		contentPane.add(lblNewLabel_1);
-		
-		//进行一些登陆检验
-		JButton btnLogin = new JButton("登录");
-		//btnLogin.setFont(new Font(Constant.font, Font.PLAIN, 13));
-		btnLogin.addActionListener(new ActionListener()
-		{
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e)
-			{
-				FacultyService fs = new FacultyService();
-				String fUsername = txtUsername.getText();
-				Faculty f = fs.findFacultyByUsername(fUsername);
-				if (f != null)
-				{
-					String fPassword = passwordField.getText().toString().trim();
-					if (f.getfPassword().equals(fPassword))
-					{
-						//MainWindow mw = new MainWindow();
-						username = fUsername;
-						dispose();
-						//mw.setVisible(true);
-					}
-					else
-					{
-						CommonUtil.showMessageBox("密码错误！");
-					}
-				}
-				else
-				{
-					CommonUtil.showMessageBox("用户名不存在！");
-				}
-			}
-		});
-		btnLogin.setBounds(20, 93, 93, 25);
-		contentPane.add(btnLogin);
-		
-		JButton btnCancel = new JButton("退出");
-		//btnCancel.setFont(new Font(Constant.font, Font.PLAIN, 13));
-		btnCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				dispose();
-			}
-		});
-		btnCancel.setBounds(144, 93, 93, 25);
-		contentPane.add(btnCancel);
-	}
 }
