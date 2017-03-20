@@ -20,7 +20,11 @@ public class StudentMessageForm extends JDialog{
 
 	public StudentMessageForm(JFrame owner)
 	{
+		
 		super(owner, "注册", true);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((d.width + this.getWidth()) / 2, (d.height + this.getHeight())/2);
+		this.setResizable(false);
 		setLayout(new BorderLayout());
 		
 		JPanel upPanel = new JPanel();

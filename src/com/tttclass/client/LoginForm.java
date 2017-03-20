@@ -9,7 +9,7 @@ import com.tttclass.entity.Faculty;
 import com.tttclass.service.FacultyService;
 import com.tttclass.util.CommonUtil;
 
-public class LoginForm extends JPanel {
+public class LoginForm extends JPanel { 
 	private JTextField username;
 	private JPasswordField password;
 	private JButton loginButton;
@@ -22,7 +22,8 @@ public class LoginForm extends JPanel {
 
 	public LoginForm() {
 		setLayout(new GridLayout(3, 1));
-
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((d.width + this.getWidth()) / 2, (d.height + this.getHeight())/2);
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2));
 		JLabel userNameLabel = new JLabel("用户名:");
@@ -141,6 +142,7 @@ public class LoginForm extends JPanel {
 				try {
 					LoginForm dialog = new LoginForm();
 					dialog.showDialog(null, "登陆");
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
