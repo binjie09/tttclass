@@ -8,6 +8,16 @@ public class Faculty
 	private String fPassword;
 	private String fPhotoPath;
 
+	public Faculty(String ID, String Username, String Realname, String Password,
+			String PhotoPath)
+	{
+		this.fID = ID;
+		this.fUsername = Username;
+		this.fRealname = Realname;
+		this.fPassword = Password;
+		this.fPhotoPath = PhotoPath;
+	}
+
 	public String getfID()
 	{
 		return fID;

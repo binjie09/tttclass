@@ -8,6 +8,15 @@ public class Student
 	private String sPhoneNumber;
 	private String sPhotoPath;
 	
+	public Student(String ID, String Name, String ClassNumber, String PhoneNumber, String PhotoPath)
+	{
+		this.sID = ID;
+		this.sName = Name;
+		this.sClassNumber = ClassNumber;
+		this.sPhoneNumber = PhoneNumber;
+		this.sPhotoPath = PhotoPath;
+	}
+	
 	public String getsID()
 	{
 		return sID;

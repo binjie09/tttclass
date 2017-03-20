@@ -87,7 +87,7 @@ public class LoginForm extends JPanel
 	    */
 	   public User getUser()
 	   {
-	      return new User(username.getText(), password.getPassword(), studentRadio.isSelected() == true ? 0 : 1);
+		return new User(username.getText(), password.getPassword(), studentRadio.isSelected() == true ? 0 : 1);
 	   }
 
 	   /**
