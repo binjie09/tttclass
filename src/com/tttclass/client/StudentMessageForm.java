@@ -65,6 +65,7 @@ public class StudentMessageForm extends JDialog{
 		upPanel.add(panelMessage);
 		add(upPanel, BorderLayout.NORTH);
 		studentImageButton = new JButton("点击上传真人丑照");
+		//大强做一下上传照片 然后写注册时间
 		studentImageButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -80,7 +81,7 @@ public class StudentMessageForm extends JDialog{
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-		
+				
 			}
 		});
 		buttonPanel.add(okButton);

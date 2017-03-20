@@ -149,7 +149,7 @@ public class StudentPerformanceForm extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//这里调用张向阳写好的数据库操作 筛选某段时间内的学生表现
+				//这里调用张向阳写好的数据库操作 筛选某段时间内的学生表现 
 			}
 		});
 		btnSearch.setFont(new Font(Constant.font, Font.PLAIN, 13));
